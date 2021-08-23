@@ -15,7 +15,7 @@
 
 ```
 cmd:  python3 create.py device size_figure action start stop
-example: python3 create.py 0 28 clean_image 0 100
+example: python3 create.py 0 28 clean_images 0 100
 ```
 
 ## Dirty images

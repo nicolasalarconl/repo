@@ -2,14 +2,15 @@ from torch.utils.data import Dataset
 import cupy as cp
 
 class TrainData(Dataset):
-    def __init__(self,datasetnoised,datasetclean,transform,device):
+    def __init__(self,datasetnoised,datasetclean,transform,devices):
         self.noise=datasetnoised
         self.clean=datasetclean
         self.transform=transform
-        self.init_device(device)
+        self.init_device(devices)
 
-    def init_device(self,device):
-        cp.cuda.Device(device).use()
+    def init_device(self,devices):
+        if (len(devices) > 1):
+            cp.cuda.Device(0).use()
             
     def __len__(self):
         return len(self.noise)
@@ -23,16 +24,17 @@ class TrainData(Dataset):
         return (noise,clean)
 
 class TestData(Dataset):
-    def __init__(self,datasetnoised,datasetclean,mask,transform,device):
+    def __init__(self,datasetnoised,datasetclean,mask,transform,devices):
         self.noise=datasetnoised
         self.clean=datasetclean
         self.transform=transform
         self.mask = mask
-        self.init_device(device)
+        self.init_device(devices)
   
-    def init_device(self,device):
-        cp.cuda.Device(device).use()
-        
+    def init_device(self,devices):
+        if (len(devices) > 1):
+            cp.cuda.Device(0).use()
+            
     def __len__(self):
         return len(self.noise)
   

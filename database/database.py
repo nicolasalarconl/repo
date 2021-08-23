@@ -23,7 +23,7 @@ class DataBase:
             print('Error')
     def sql_close(self):
         self.con.close()
-        
+
     def create_all_tables(self):
         self.create_table_architecture()
         #self.create_table_params()
@@ -62,15 +62,15 @@ class DataBase:
         return cursorObj.fetchall()
   
     ### PARAMS #######
-     def create_table_param(self):
+    def create_table_param(self):
         cursorObj = self.con.cursor()
         cursorObj.execute('DROP table if exists params')
-        cursorObj.execute("CREATE TABLE params(id integer PRIMARY KEY AUTOINCREMENT,k1 integer,k2 integer,k3 integer,k4 integer,k5 integer,k6 integer,k7 integer,k8 integer,p1 integer,p2 integer,p3 integer,p4 integer,s1 integer,s2 integer,s3 integer,s4 integer,out_in integer)")
+        cursorObj.execute("CREATE TABLE params(id integer PRIMARY KEY AUTOINCREMENT,k1 integer,k2 integer,k3 integer,k4 integer,k5 integer,k6 integer,k7 integer,k8 integer,k9 integer,p1 integer,p2 integer,p3 integer,p4 integer,p5 integer,s1 integer,s2 integer,s3 integer,s4 integer,out_in integer)")
         self.con.commit()  
         
     def insert_params(self,values):
         cursorObj = self.con.cursor()
-        cursorObj.execute('INSERT INTO params(k1,k2,k3,k4,k5,k6,k7,k8,p1,p2,p3,p4,s1,s2,s3,s4,out_in) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', values)
+        cursorObj.execute('INSERT INTO params(k1,k2,k3,k4,k5,k6,k7,k8,k9,p1,p2,p3,p4,p5,s1,s2,s3,s4,out_in) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', values)
         self.con.commit() 
         return cursorObj.lastrowid
         
@@ -91,9 +91,13 @@ class DataBase:
     def create_table_model(self):
         cursorObj = self.con.cursor()
         cursorObj.execute('DROP table if exists models')
-        cursorObj.execute("CREATE TABLE models(id INTEGER PRIMARY KEY AUTOINCREMENT,id_architecture integer,id_param integer)")
+        cursorObj.execute("CREATE TABLE models(id INTEGER PRIMARY KEY AUTOINCREMENT,id_param integer,execute integer)")
         self.con.commit()
-
-
+        
+    def insert_model(self,values):
+        cursorObj = self.con.cursor()
+        cursorObj.execute('INSERT OR REPLACE INTO models(id_param,execute) VALUES(?,?)', values)
+        self.con.commit()
+        return cursorObj.lastrowid
 
 

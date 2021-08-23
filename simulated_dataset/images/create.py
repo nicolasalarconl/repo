@@ -6,7 +6,6 @@ sys.path.append("../scripts")
 from clean.listEllipses import ListEllipses
 from clean.paramsEllipses import ParamsEllipses
 from clean.randomImage import RandomImage
-from clean.datasetImages import DatasetImages
 #from dirty.datasetDirty import DatasetDirty
 #from psf.datasetPSF import DatasetPSF
 
@@ -56,8 +55,10 @@ class Create:
             save_clean(self.path_clean,index,self.size_figure,clean)
             
     def dirty_images(self,start,stop,type_psf):
-        psf_gauss = read_fit(path =self.path_psf+'/'+type_psf+'/PSF_Gauss/psf_gauss.fits',size_figure = self.size_figure)
-        psf_real =  read_fit(path =self.path_psf+'/'+type_psf+'/PSF_Real/psf_real.fits',size_figure = self.size_figure)
+        
+        path = self.path_psf+'/'+str(type_psf)+'/PSF_'+str(self.size_figure)+'x'+str(self.size_figure)
+        psf_gauss = read_fit(path =path+'/PSF_Gauss/psf_gauss.fits',size_figure = self.size_figure)
+        psf_real =  read_fit(path =path+'/PSF_Real/psf_real.fits',size_figure = self.size_figure)
         path_clean_image = self.path_clean+'/Clean_Images/'+'clean_'+str(self.size_figure)+'x'+str(self.size_figure)
         for index in tqdm(cp.arange(int(start),int(stop),1),leave=True):
             path_clean_image_index = path_clean_image+'_'+str(index)+'.fits'
