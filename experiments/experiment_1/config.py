@@ -10,26 +10,28 @@ ARCHITECTURES = ['architecture_1']
 #Images#
 SIZES = [28] # ,640,1024]
 PSFS = ['PSF_1']
+TYPES_PSF = ['Real'] #,'Gauss']
 PATH_IMAGES = '../../simulated_dataset/images/'
 #Models#
-OUTS =  [64] #,32]#,32,64,128]
+OUTS =  [16,64,128,256,512,1024] #,32]#,32,64,128]
 KERNEL = cp.arange(1,3,1)
 STRIDE = cp.arange(1,3,1)
 PADDING = cp.arange(1,3,1)
 MODELS = cp.arange(1,2,1)
 #HyperParams
 EPOCHS = [1]
-BATCHS =  [2] #,4,8,16,32,64,128]
+BATCH_TEST = 1
+BATCHS =  [1] #,4,8,16,32,64,128]
 LEARNING_RATES = [1e-3]#,1e-4,1e-5]
-SIZES_DATASET=  [5]#,16384,32768,65536,131072]
+START = 0
+SIZES_DATASET=  [10000]#,16384,32768,65536,131072]
 PERC_TRAIN = 0.7
 PERC_VALIDATION = 0.2
 PERC_TEST = 0.1
 #Executions
-EXECUTIONS = cp.arange(1,3,1)
+EXECUTIONS = cp.arange(1,10,1)
 ## Devices ###
-DEVICES = [ ['cuda:0']] #,['cuda:0','cuda:1']]
-
+DEVICES = [['cuda:0']] #,['cuda:0','cuda:1']]
 ## architecture ## 
 def get_path_db():
     return PATH_DB
@@ -55,14 +57,21 @@ def get_executions():
     return EXECUTIONS
 def get_batchs():
     return BATCHS
+
+def get_batch_test():
+    return BATCH_TEST
 def get_epochs():
     return EPOCHS
 def get_learning_rates():
     return LEARNING_RATES
+def get_start():
+    return START
 def get_sizes_dataset():
     return SIZES_DATASET
 def get_devices():
     return DEVICES
+def get_types_psf():
+    return TYPES_PSF
 def get_path_images():
     return PATH_IMAGES
 def get_perc_train():
